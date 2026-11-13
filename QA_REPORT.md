@@ -5,6 +5,7 @@
 | Kiểm tra | Lệnh / cách làm | Kết quả |
 | --- | --- | --- |
 | Cài thư viện | `npm install` | ✅ Thành công — 165 gói, không lỗi |
+| QA độc lập chạy lại (PM/QA, 2026-11-13) | `npm test` + `npm run build` + quét `localStorage`/`TODO` trên bản local | ✅ 13/13 test pass; build pass (chỉ cảnh báo chunk > 500 kB); không dùng localStorage ngoài comment; không TODO/nút giả |
 | Kiểm thử đơn vị | `npm test` (vitest run) | ✅ **13/13 test pass** (2 file) |
 | Build production | `npm run build` (`tsc -b && vite build`) | ✅ Pass — TypeScript không lỗi; dist gồm index.html 0,64 kB, CSS 4,23 kB, JS 1.170,06 kB (gzip 327,58 kB) |
 | Xem thử bản build | `npm run preview` (cổng 4173) + `curl` | ✅ HTTP 200 tại `/nha-3d-cai-tao/`; HTML chứa `<title>NHÀ 3D – Cải tạo nhà</title>`; file JS chính trả HTTP 200 |
@@ -23,7 +24,7 @@
 
 - **WebGL / hiển thị 3D thật**: curl chỉ kiểm tra được HTTP và HTML, **không** chạy được WebGL. Việc mô hình hiển thị đúng, thao tác xoay/chạm mượt, chọn đối tượng bằng chạm trên màn hình thật — **chưa được kiểm tra bằng trình duyệt/thiết bị thật trong vòng này**.
 - **Điện thoại Android**: chưa kiểm tra — cần mở bản build trên thiết bị Android thật (sau khi có hosting hoặc chạy dev server trong cùng mạng).
-- **GitHub Pages sau triển khai**: **chưa kiểm tra — chờ repo**. Repository `bohoa96tb/nha-3d-cai-tao` chưa tồn tại nên chưa push, chưa chạy được GitHub Actions, chưa có website Pages để kiểm tra. Workflow đã viết sẵn tại `.github/workflows/deploy.yml`.
+- **GitHub Pages sau triển khai**: repo đã được chủ dự án tạo ngày 2026-11-13 (rỗng, Muse truy cập được). Đang đẩy code lần đầu và kiểm tra GitHub Actions + website Pages thực tế; kết quả sẽ cập nhật vào file này ngay sau khi kiểm tra xong.
 - **Lưu/mở lại trong trình duyệt thật**: logic lưu IndexedDB đã có mã nguồn + test store ở mức đơn vị; việc đóng/mở lại trình duyệt thật để tải lại dự án chưa được kiểm chứng trên trình duyệt thật trong vòng này.
 
 ## Kết luận V1
