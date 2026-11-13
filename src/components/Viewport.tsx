@@ -6,7 +6,7 @@ import { useStore, type GocNhin } from '../store/useStore'
 import HouseModel from './HouseModel'
 
 const VI_TRI_CAMERA: Record<GocNhin, [number, number, number]> = {
-  'mac-dinh': [11, 8, 13],
+  'mac-dinh': [12.5, 9, 14.5],
   'tren-xuong': [0, 20, 0.01],
   'mat-dung': [0, 2.2, 17],
 }
@@ -70,7 +70,7 @@ export default function Viewport() {
         fadeDistance={45}
         infiniteGrid
       />
-      <OrbitControls makeDefault enableDamping dampingFactor={0.08} maxPolarAngle={Math.PI / 2.02} minDistance={3} maxDistance={45} />
+      <OrbitControls makeDefault target={[0, 1.4, 0]} enableDamping dampingFactor={0.08} maxPolarAngle={Math.PI / 2.02} minDistance={3} maxDistance={45} />
       <CameraRig />
     </Canvas>
   )
