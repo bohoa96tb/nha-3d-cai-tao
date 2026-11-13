@@ -6,7 +6,7 @@ Cập nhật: 2026-11-13 · Quy tắc chung: mỗi mốc chỉ bắt đầu khi 
 
 | Mốc | Nội dung | Trạng thái |
 | --- | --- | --- |
-| V1 | Khung nhà 3D và điều khiển | 🔄 Đã làm xong ở local, QA độc lập đã chạy lại — chờ chủ dự án đẩy bundle lên GitHub (xem mục Lưu ý), sau đó kiểm tra Actions + Pages thực tế |
+| V1 | Khung nhà 3D và điều khiển | ✅ HOÀN THÀNH 2026-11-13 — code trên GitHub, workflow xanh, Pages live bản build thật, QA độc lập trên website trực tiếp đạt (xem QA_REPORT.md). Chờ chủ dự án xác nhận trước khi sang V2 |
 | V2 | Chỉnh sửa tường, cửa và cầu thang (di chuyển/xoay/đổi kích thước, đục tường, tạo cửa mở mới…) | ⏳ Chưa làm (theo kế hoạch) |
 | V3 | Mái tôn, khung thép và tum cầu thang (chỉnh độ dốc/hướng mái, kích thước tum…) | ⏳ Chưa làm (theo kế hoạch) |
 | V4 | So sánh phương án, lưu trữ nhiều phương án, xuất/nhập GLB | ⏳ Chưa làm (theo kế hoạch) |
@@ -38,5 +38,6 @@ Cập nhật: 2026-11-13 · Quy tắc chung: mỗi mốc chỉ bắt đầu khi 
 
 ## Lưu ý chờ xử lý
 
-- Repository `bohoa96tb/nha-3d-cai-tao` đã được chủ dự án tạo ngày 2026-11-13 (lúc bắt đầu làm V1 thì chưa có; Muse không có quyền tạo repo qua kết nối GitHub — lỗi 403). Đẩy trực tiếp qua kết nối GitHub cũng bị chặn (403 khi tạo cây file — ứng dụng GitHub chưa có quyền ghi nội dung cho repo này), nhưng lần thử đó đã khởi tạo repo với 1 commit chứa README.md rỗng (commit `e1c9642`). Vì vậy V1 được bàn giao bằng **git bundle** để chủ dự án đẩy từ Termux kèm bước gộp commit khởi tạo đó. Workflow đã bật `enablement: true` để tự kích hoạt GitHub Pages (nguồn: GitHub Actions) ở lần chạy đầu sau khi code lên.
+- Repository `bohoa96tb/nha-3d-cai-tao` đã được chủ dự án tạo ngày 2026-11-13 (lúc bắt đầu làm V1 thì chưa có; Muse không có quyền tạo repo qua kết nối GitHub — lỗi 403). Đẩy trực tiếp qua kết nối GitHub cũng bị chặn (403 khi tạo cây file — ứng dụng GitHub chưa có quyền ghi nội dung cho repo này), nhưng lần thử đó đã khởi tạo repo với 1 commit chứa README.md rỗng (commit `e1c9642`). Vì vậy V1 được bàn giao bằng **git bundle**; chủ dự án đã đẩy lên từ Termux ngày 2026-11-13 (HEAD remote `5686432`, gồm bước gộp commit khởi tạo).
+- GitHub Pages: token của workflow không tự tạo được Pages site trên repo cá nhân (403), nên chủ dự án đã bật Pages thủ công một lần trong Settings và chọn Source = **GitHub Actions** (lúc đầu chọn nhầm "Deploy from a branch" khiến site phục vụ mã nguồn thô). Sau đó workflow "Triển khai lên GitHub Pages" được chạy tay (Run workflow) và **thành công**: site https://bohoa96tb.github.io/nha-3d-cai-tao/ đang phục vụ bản build thật (HTML trỏ tới `assets/index-*.js`, file JS trả HTTP 200, ~1,17 MB — đã kiểm chứng bằng curl ngày 2026-11-13). Từ các mốc sau, mỗi lần đẩy lên `main` sẽ tự triển khai, không cần thao tác tay nữa.
 - Bundle JS production ~1,17 MB (gzip ~328 kB) do Three.js — chấp nhận được cho V1; có thể tách chunk ở mốc hoàn thiện (V5).
