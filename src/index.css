@@ -251,6 +251,96 @@ input {
   color: var(--mau-chu-mo);
 }
 
+/* --- V2: khu vực chỉnh sửa trong bảng thuộc tính --- */
+.bang-thuoc-tinh {
+  max-height: 85dvh;
+  overflow-y: auto;
+}
+
+.khu-chinh-sua {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 2px solid var(--mau-vien);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.khu-chinh-sua h3 {
+  margin: 0;
+  font-size: 0.98rem;
+  color: var(--mau-chinh-dam);
+}
+
+.nhom-gizmo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.luoi-o-so {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.o-so {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.82rem;
+  color: var(--mau-chu-mo);
+}
+
+.o-so input {
+  min-height: 40px;
+  padding: 6px 8px;
+  border: 1px solid var(--mau-vien);
+  border-radius: 8px;
+  background: var(--mau-the);
+  color: var(--mau-chu);
+  width: 100%;
+}
+
+.o-so input:disabled {
+  background: var(--mau-nen);
+  opacity: 0.55;
+}
+
+.ghi-chu {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--mau-chu-mo);
+}
+
+.khu-duc-bo,
+.khu-cua-moi {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.canh-bao {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  padding: 8px 10px;
+  border: 1px solid #e5a199;
+  border-radius: 8px;
+  background: #fdecea;
+  color: #7c2415;
+}
+
+.the-duc-bo {
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #f6c9c2;
+  color: #8c1f0e;
+  font-weight: 600;
+}
+
 /* --- Danh sách bộ phận --- */
 .danh-sach-bo-phan {
   list-style: none;

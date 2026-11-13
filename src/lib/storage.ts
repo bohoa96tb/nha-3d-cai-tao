@@ -8,7 +8,11 @@ export async function luuDuAn(duAn: DuAnDaLuu): Promise<void> {
   await set(KHOA_DU_AN, duAn)
 }
 
-/** Tải dự án đã lưu; trả undefined nếu chưa từng lưu hoặc dữ liệu không hợp lệ. */
+/**
+ * Tải dự án đã lưu; trả undefined nếu chưa từng lưu hoặc dữ liệu không hợp lệ.
+ * Chấp nhận cả bản lưu V1 (không có `phienBan`/`boPhan` — store sẽ migration sang
+ * nhà mẫu mặc định) và bản lưu V2 (`phienBan: 2`, kèm mảng `boPhan` hợp lệ).
+ */
 export async function taiDuAn(): Promise<DuAnDaLuu | undefined> {
   try {
     const v = await get<DuAnDaLuu>(KHOA_DU_AN)
@@ -16,6 +20,8 @@ export async function taiDuAn(): Promise<DuAnDaLuu | undefined> {
     if (typeof v.tenDuAn !== 'string' || typeof v.anHien !== 'object' || typeof v.lopBat !== 'object') {
       return undefined
     }
+    if (v.phienBan === 2 && !Array.isArray(v.boPhan)) return undefined
+    if (v.boPhan !== undefined && !Array.isArray(v.boPhan)) return undefined
     return v
   } catch {
     return undefined

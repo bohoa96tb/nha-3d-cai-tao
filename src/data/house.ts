@@ -101,9 +101,10 @@ export const NHA_MAU: BoPhanNha[] = [
     ten: 'Cầu thang thẳng',
     loai: 'cau-thang',
     lop: 'hien-trang',
-    kichThuoc: { dai: 1, rong: 2.7, cao: 3.2 },
+    kichThuoc: { dai: 1, rong: 3, cao: 3.2 },
     viTri: [3.2, 1.75, -2.5],
-    moTa: 'Cầu thang thẳng 10 bậc, mỗi bậc cao 0,32 m, mặt bậc sâu 0,3 m, lên sàn mái thấp qua tum.',
+    soBac: 10,
+    moTa: 'Cầu thang thẳng 10 bậc, mỗi bậc cao 0,32 m, mặt bậc sâu 0,3 m, tổng dài chạy 3,0 m, lên sàn mái thấp qua tum.',
   },
   {
     id: 'mai-chinh',
@@ -146,4 +147,58 @@ export const NHA_MAU: BoPhanNha[] = [
 export function timBoPhan(id: string | null): BoPhanNha | undefined {
   if (!id) return undefined
   return NHA_MAU.find((p) => p.id === id)
+}
+
+/* ================= V2: hằng số + hàm trợ giúp chỉnh sửa ================= */
+
+/** Kích thước cố định của ô cửa mở mới (m). */
+export const RONG_O_CUA = 0.9
+export const CAO_O_CUA = 2.1
+/** Phần tường tối thiểu giữ lại ở hai đầu ô cửa mới (m). */
+export const LE_O_CUA = 0.2
+/** Mặt bậc cầu thang sâu cố định (m); tổng dài chạy = số bậc × độ sâu này. */
+export const SAU_BAC = 0.3
+/** Cao độ mặt trên của sàn nhà (m) — chân tường và chân cầu thang neo tại đây. */
+export const MAT_SAN = 0.15
+
+/** Các tường đã có ô cửa sẵn trong nhà mẫu: không sửa chiều dài, không tạo thêm ô mới ở V2. */
+export const TUONG_CO_O_SAN: ReadonlySet<string> = new Set(['tuong-truoc', 'tuong-phai'])
+
+export function tuongCoOSan(p: BoPhanNha): boolean {
+  return p.loai === 'tuong' && TUONG_CO_O_SAN.has(p.id)
+}
+
+/** Tường trơn = tường không có ô cửa sẵn → được tạo cửa mở mới. */
+export function tuongTron(p: BoPhanNha): boolean {
+  return p.loai === 'tuong' && !TUONG_CO_O_SAN.has(p.id)
+}
+
+/** Sao chép sâu mảng bộ phận (để đưa vào store / khôi phục nhà mẫu mà không sửa dữ liệu gốc). */
+export function saoChepNhaMau(): BoPhanNha[] {
+  return NHA_MAU.map((p) => ({
+    ...p,
+    kichThuoc: { ...p.kichThuoc },
+    viTri: [...p.viTri] as [number, number, number],
+    loCuaMoi: p.loCuaMoi ? { ...p.loCuaMoi } : undefined,
+  }))
+}
+
+export function kepSo(v: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, v))
+}
+
+/** Khoảng hợp lệ của "vị trí ô cửa (m từ đầu tường)" theo chiều dài tường hiện tại. */
+export function khoangViTriLoCua(daiTuong: number): { min: number; max: number } {
+  const max = Math.round(Math.max(LE_O_CUA, daiTuong - RONG_O_CUA - LE_O_CUA) * 1000) / 1000
+  return { min: LE_O_CUA, max }
+}
+
+export function kepViTriLoCua(daiTuong: number, viTri: number): number {
+  const { min, max } = khoangViTriLoCua(daiTuong)
+  return kepSo(viTri, min, max)
+}
+
+/** Id của bộ phận cửa đi được tạo kèm một tường khi tạo cửa mở mới. */
+export function idCuaMoi(tuongId: string): string {
+  return `cua-mo-moi-${tuongId}`
 }

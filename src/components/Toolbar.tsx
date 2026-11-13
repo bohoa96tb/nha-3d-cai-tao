@@ -10,6 +10,7 @@ export default function Toolbar({ onLuu, trangThaiLuu }: Props) {
   const datTenDuAn = useStore((s) => s.datTenDuAn)
   const hoanTac = useStore((s) => s.hoanTac)
   const lamLai = useStore((s) => s.lamLai)
+  const khoiPhucNhaMau = useStore((s) => s.khoiPhucNhaMau)
   const coHoanTac = useStore((s) => s.quaKhu.length > 0)
   const coLamLai = useStore((s) => s.tuongLai.length > 0)
 
@@ -39,6 +40,14 @@ export default function Toolbar({ onLuu, trangThaiLuu }: Props) {
         </button>
         <button type="button" className="nut" onClick={lamLai} disabled={!coLamLai}>
           ↪ Làm lại
+        </button>
+        <button
+          type="button"
+          className="nut"
+          onClick={khoiPhucNhaMau}
+          title="Đặt lại mọi bộ phận về nhà mẫu ban đầu (vẫn hoàn tác được)"
+        >
+          🏠 Khôi phục nhà mẫu
         </button>
         <span className="trang-thai-luu" role="status">
           {trangThaiLuu}

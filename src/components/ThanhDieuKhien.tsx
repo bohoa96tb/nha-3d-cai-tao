@@ -69,7 +69,10 @@ export default function ThanhDieuKhien() {
         </button>
       </div>
 
-      <p className="goi-y-thao-tac">Kéo để xoay 360°, cuộn/chụm để phóng to – thu nhỏ, chạm vào một bộ phận để chọn.</p>
+      <p className="goi-y-thao-tac">
+        Kéo để xoay 360°, cuộn/chụm để phóng to – thu nhỏ, chạm vào một bộ phận để chọn. Sau khi chọn, mở mục "Chỉnh sửa"
+        trong bảng Thuộc tính để sửa số đo hoặc kéo trực tiếp trên mô hình.
+      </p>
     </section>
   )
 }

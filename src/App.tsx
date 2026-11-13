@@ -14,6 +14,7 @@ function gioHienTai(): string {
 
 export default function App() {
   const tenDuAn = useStore((s) => s.tenDuAn)
+  const boPhan = useStore((s) => s.boPhan)
   const anHien = useStore((s) => s.anHien)
   const lopBat = useStore((s) => s.lopBat)
   const dangChon = useStore((s) => s.dangChon)
@@ -43,7 +44,15 @@ export default function App() {
   const taoBanLuu = useCallback((): DuAnDaLuu => {
     const s = useStore.getState()
     return {
+      phienBan: 2,
       tenDuAn: s.tenDuAn,
+      // Chỉ lưu số liệu nhỏ của từng bộ phận (tên, kích thước, vị trí, cờ sửa) — không lưu hình học 3D.
+      boPhan: s.boPhan.map((p) => ({
+        ...p,
+        kichThuoc: { ...p.kichThuoc },
+        viTri: [...p.viTri] as [number, number, number],
+        loCuaMoi: p.loCuaMoi ? { ...p.loCuaMoi } : undefined,
+      })),
       anHien: { ...s.anHien },
       lopBat: { ...s.lopBat },
       dangChon: s.dangChon,
@@ -65,7 +74,7 @@ export default function App() {
         .catch(() => setTrangThaiLuu('Không lưu được — vui lòng thử nút Lưu dự án'))
     }, 500)
     return () => clearTimeout(hen)
-  }, [tenDuAn, anHien, lopBat, dangChon, daTaiXong, taoBanLuu])
+  }, [tenDuAn, boPhan, anHien, lopBat, dangChon, daTaiXong, taoBanLuu])
 
   const luuNgay = useCallback(() => {
     luuDuAn(taoBanLuu())
@@ -88,8 +97,8 @@ export default function App() {
       </main>
       <footer className="chan-trang">
         <p>
-          NHÀ 3D – CẢI TẠO NHÀ · Phiên bản V1: khung nhà 3D và điều khiển. Đơn vị đo: mét (m). Ứng dụng không tự động
-          phá bỏ hay thay đổi kết cấu chịu lực.
+          NHÀ 3D – CẢI TẠO NHÀ · Phiên bản V2: chỉnh sửa tường, cửa và cầu thang. Đơn vị đo: mét (m). Ứng dụng không tự
+          động phá bỏ hay thay đổi kết cấu chịu lực — mục "dự kiến đục bỏ" chỉ là đánh dấu lập phương án.
         </p>
       </footer>
     </div>
