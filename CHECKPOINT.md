@@ -7,7 +7,7 @@ Cập nhật: 2026-11-13 · Quy tắc chung: mỗi mốc chỉ bắt đầu khi 
 | Mốc | Nội dung | Trạng thái |
 | --- | --- | --- |
 | V1 | Khung nhà 3D và điều khiển | ✅ HOÀN THÀNH 2026-11-13 — code trên GitHub, workflow xanh, Pages live bản build thật, QA độc lập trên website trực tiếp đạt (xem QA_REPORT.md). Chờ chủ dự án xác nhận trước khi sang V2 |
-| V2 | Chỉnh sửa tường, cửa và cầu thang (di chuyển/xoay/đổi kích thước, đục tường, tạo cửa mở mới…) | ⏳ Chưa làm (theo kế hoạch) |
+| V2 | Chỉnh sửa tường, cửa và cầu thang (di chuyển/xoay/đổi kích thước, đục tường, tạo cửa mở mới…) | ✅ Đã làm xong ở local 2026-11-13 — chờ QA độc lập + đẩy lên GitHub (xem mục V2) |
 | V3 | Mái tôn, khung thép và tum cầu thang (chỉnh độ dốc/hướng mái, kích thước tum…) | ⏳ Chưa làm (theo kế hoạch) |
 | V4 | So sánh phương án, lưu trữ nhiều phương án, xuất/nhập GLB | ⏳ Chưa làm (theo kế hoạch) |
 | V5 | Kiểm thử toàn diện và hoàn thiện | ⏳ Chưa làm (theo kế hoạch) |
@@ -27,10 +27,20 @@ Cập nhật: 2026-11-13 · Quy tắc chung: mỗi mốc chỉ bắt đầu khi 
 - [x] Kiểm thử đơn vị vitest: 13 test (dữ liệu nhà mẫu + store) — pass.
 - [x] `npm run build` (tsc -b + vite build) — pass; `npm run preview` + curl — HTTP 200, tiêu đề "NHÀ 3D" có trong HTML.
 
-## Việc chưa làm (thuộc V2–V5, không làm trong V1)
+## V2 — Việc đã làm (local, 2026-11-13)
 
-- Di chuyển / xoay / thay đổi kích thước đối tượng bằng gizmo; sửa chiều cao, độ dày tường (V2).
-- Đánh dấu tường dự kiến đục bỏ; tạo cửa mở mới (V2).
+- [x] Dữ liệu bộ phận chuyển hẳn vào store: store giữ mảng `boPhan` (bản sao sửa được của nhà mẫu), HouseModel render từ store; snapshot hoàn tác bao phủ cả `boPhan` — mọi thao tác sửa đều hoàn tác/làm lại được.
+- [x] Lưu trữ phiên bản 2: payload IndexedDB `{ phienBan: 2, tenDuAn, boPhan, anHien, lopBat, dangChon }` (chỉ số liệu nhỏ); migration bản lưu V1 (không có `boPhan`) → nạp nhà mẫu rồi áp ẩn/hiện cũ. Nút "Khôi phục nhà mẫu" trên thanh công cụ (có qua lịch sử hoàn tác).
+- [x] Gizmo kéo trực tiếp (TransformControls của drei) gắn vào bộ phận đang chọn, mặc định TẮT: Di chuyển (khóa trục Y, snap 0,1 m), Xoay (chỉ trục Y, snap 15°), Kích thước (không áp cho tường + cầu thang — hai loại này sửa bằng ô số). Thả chuột mới ghi 1 lần vào store qua `capNhatBoPhan`. OrbitControls tự tắt khi kéo gizmo (pattern makeDefault của drei, đã kiểm chứng trong mã nguồn drei).
+- [x] Ô nhập số chính xác trong mục "Chỉnh sửa" của bảng thuộc tính (ghi khi Enter/blur): vị trí X, Z; góc xoay Y; kích thước theo loại.
+- [x] Tường: sửa chiều cao (1,5–5 m) + độ dày (0,05–0,5 m) → dựng lại hình học thật bằng bộ dựng đoạn hộp quanh ô trống (bệ + đà trên ô tự tính lại); đổi chiều cao neo chân tường trên mặt sàn. Tường có ô cửa sẵn (trước, phải) khóa ô chiều dài kèm chú thích; tường trơn sửa được cả dài.
+- [x] Đánh dấu "dự kiến đục bỏ" cho tường: cờ `ducBo`, render đỏ bán trong suốt (0,55) + viền đỏ, nhãn trong danh sách, dòng cảnh báo "chỉ đánh dấu — không tự phá kết cấu chịu lực". Chỉ đánh dấu, không xóa hình học.
+- [x] Tạo cửa mở mới trên tường trơn (sau, trái, ngăn): ô trống 0,9 × 2,1 m tại vị trí người dùng đặt (m từ đầu tường, kẹp [0,2; dài − 1,1]), tự thêm cửa đi lớp cải tạo đặt đúng ô; sửa vị trí ô / xóa cửa khôi phục tường đặc; tối đa 1 ô/tường; qua hoàn tác đúng từng bước.
+- [x] Cầu thang: sửa chiều rộng (0,7–1,6 m) + số bậc (8–14, nguyên) → dựng lại bậc thật; chiều cao mỗi bậc = tổng cao ÷ số bậc; dài chạy tự đồng bộ = số bậc × 0,3 m.
+- [x] Kiểm thử: 32/32 test pass (13 test V1 giữ nguyên + 19 test V2 mới); build pass; preview + curl 200.
+
+## Việc chưa làm (thuộc V3–V5, không làm trong V2)
+
 - Chỉnh độ dốc/hướng mái tôn; chỉnh chiều cao/chiều rộng tum (V3).
 - Nhiều phương án đặt tên và so sánh trước/sau dạng chia màn hình (V4) — V1 mới lưu 1 dự án hiện tại + tên dự án.
 - Xuất/nhập mô hình GLB (V4).

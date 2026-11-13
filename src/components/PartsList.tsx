@@ -1,9 +1,9 @@
-import { NHA_MAU } from '../data/house'
 import { NHAN_LOP } from '../types'
 import { useStore, dangHienThi } from '../store/useStore'
 
 export default function PartsList() {
   const dangChon = useStore((s) => s.dangChon)
+  const boPhan = useStore((s) => s.boPhan)
   const anHien = useStore((s) => s.anHien)
   const lopBat = useStore((s) => s.lopBat)
   const chon = useStore((s) => s.chon)
@@ -11,9 +11,9 @@ export default function PartsList() {
 
   return (
     <section className="bang bang-danh-sach" aria-label="Danh sách các bộ phận của ngôi nhà">
-      <h2>Các bộ phận ({NHA_MAU.length})</h2>
+      <h2>Các bộ phận ({boPhan.length})</h2>
       <ul className="danh-sach-bo-phan">
-        {NHA_MAU.map((p) => {
+        {boPhan.map((p) => {
           const hien = dangHienThi(anHien, lopBat, p.id, p.lop)
           const dangChonDay = dangChon === p.id
           return (
@@ -28,6 +28,7 @@ export default function PartsList() {
                 <span className={p.lop === 'cai-tao' ? 'the-lop the-cai-tao' : 'the-lop'}>
                   {NHAN_LOP[p.lop]}
                 </span>
+                {p.loai === 'tuong' && p.ducBo && <span className="the-duc-bo">Dự kiến đục bỏ</span>}
                 <span className="kich-thuoc-muc">
                   {p.kichThuoc.dai.toFixed(2)} × {p.kichThuoc.rong.toFixed(2)} × {p.kichThuoc.cao.toFixed(2)} m
                 </span>
