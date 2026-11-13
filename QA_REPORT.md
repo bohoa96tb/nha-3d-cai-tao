@@ -24,7 +24,7 @@
 
 - **WebGL / hiển thị 3D thật**: curl chỉ kiểm tra được HTTP và HTML, **không** chạy được WebGL. Việc mô hình hiển thị đúng, thao tác xoay/chạm mượt, chọn đối tượng bằng chạm trên màn hình thật — **chưa được kiểm tra bằng trình duyệt/thiết bị thật trong vòng này**.
 - **Điện thoại Android**: chưa kiểm tra — cần mở bản build trên thiết bị Android thật (sau khi có hosting hoặc chạy dev server trong cùng mạng).
-- **GitHub Pages sau triển khai**: repo đã được chủ dự án tạo ngày 2026-11-13 (rỗng, Muse truy cập được). Đang đẩy code lần đầu và kiểm tra GitHub Actions + website Pages thực tế; kết quả sẽ cập nhật vào file này ngay sau khi kiểm tra xong.
+- **GitHub Pages sau triển khai**: repo đã được chủ dự án tạo ngày 2026-11-13. Muse đẩy trực tiếp qua kết nối GitHub bị chặn (403 — ứng dụng GitHub chưa có quyền ghi nội dung cho repo này; lần thử đã khởi tạo repo kèm README rỗng, commit `e1c9642`). Code V1 được bàn giao bằng git bundle để chủ dự án đẩy từ Termux; GitHub Actions + website Pages thực tế sẽ được kiểm tra ngay sau khi code lên, và kết quả cập nhật vào file này.
 - **Lưu/mở lại trong trình duyệt thật**: logic lưu IndexedDB đã có mã nguồn + test store ở mức đơn vị; việc đóng/mở lại trình duyệt thật để tải lại dự án chưa được kiểm chứng trên trình duyệt thật trong vòng này.
 
 ## Kết luận V1

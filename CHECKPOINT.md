@@ -6,7 +6,7 @@ Cập nhật: 2026-11-13 · Quy tắc chung: mỗi mốc chỉ bắt đầu khi 
 
 | Mốc | Nội dung | Trạng thái |
 | --- | --- | --- |
-| V1 | Khung nhà 3D và điều khiển | 🔄 Đã làm xong ở local, QA độc lập đã chạy lại — đang đẩy lên GitHub + kiểm tra Pages thực tế |
+| V1 | Khung nhà 3D và điều khiển | 🔄 Đã làm xong ở local, QA độc lập đã chạy lại — chờ chủ dự án đẩy bundle lên GitHub (xem mục Lưu ý), sau đó kiểm tra Actions + Pages thực tế |
 | V2 | Chỉnh sửa tường, cửa và cầu thang (di chuyển/xoay/đổi kích thước, đục tường, tạo cửa mở mới…) | ⏳ Chưa làm (theo kế hoạch) |
 | V3 | Mái tôn, khung thép và tum cầu thang (chỉnh độ dốc/hướng mái, kích thước tum…) | ⏳ Chưa làm (theo kế hoạch) |
 | V4 | So sánh phương án, lưu trữ nhiều phương án, xuất/nhập GLB | ⏳ Chưa làm (theo kế hoạch) |
@@ -38,5 +38,5 @@ Cập nhật: 2026-11-13 · Quy tắc chung: mỗi mốc chỉ bắt đầu khi 
 
 ## Lưu ý chờ xử lý
 
-- Repository `bohoa96tb/nha-3d-cai-tao` đã được chủ dự án tạo ngày 2026-11-13 (lúc bắt đầu làm V1 thì chưa có; Muse không có quyền tạo repo qua kết nối GitHub — lỗi 403). Repo được xác minh là **rỗng và truy cập được** qua kết nối GitHub; lần đẩy đầu tiên sẽ khởi tạo repo. Workflow đã bật `enablement: true` để tự kích hoạt GitHub Pages (nguồn: GitHub Actions) ở lần chạy đầu.
+- Repository `bohoa96tb/nha-3d-cai-tao` đã được chủ dự án tạo ngày 2026-11-13 (lúc bắt đầu làm V1 thì chưa có; Muse không có quyền tạo repo qua kết nối GitHub — lỗi 403). Đẩy trực tiếp qua kết nối GitHub cũng bị chặn (403 khi tạo cây file — ứng dụng GitHub chưa có quyền ghi nội dung cho repo này), nhưng lần thử đó đã khởi tạo repo với 1 commit chứa README.md rỗng (commit `e1c9642`). Vì vậy V1 được bàn giao bằng **git bundle** để chủ dự án đẩy từ Termux kèm bước gộp commit khởi tạo đó. Workflow đã bật `enablement: true` để tự kích hoạt GitHub Pages (nguồn: GitHub Actions) ở lần chạy đầu sau khi code lên.
 - Bundle JS production ~1,17 MB (gzip ~328 kB) do Three.js — chấp nhận được cho V1; có thể tách chunk ở mốc hoàn thiện (V5).
